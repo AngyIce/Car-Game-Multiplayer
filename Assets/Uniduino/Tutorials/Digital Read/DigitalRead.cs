@@ -8,7 +8,7 @@ using Uniduino;
 		
 		public Arduino arduino;
 		
-		public int pin = 2;
+		public int pin = 6;
 		public int pinValue;
 		public int testLed = 13;
 

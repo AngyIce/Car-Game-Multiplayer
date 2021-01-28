@@ -11,8 +11,11 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
-        zFocus = GameObject.FindGameObjectWithTag("Player").transform.position.z;
-        this.transform.position = new Vector3(xCameraAdjust, yCameraAdjust, zFocus + zCameraAdjust);
+        if (GameObject.Find("Player(Clone)") != null)
+        {
+            zFocus = GameObject.FindGameObjectWithTag("Player").transform.position.z;
+            this.transform.position = new Vector3(xCameraAdjust, yCameraAdjust, zFocus + zCameraAdjust);
+        }     
     }
 
 }

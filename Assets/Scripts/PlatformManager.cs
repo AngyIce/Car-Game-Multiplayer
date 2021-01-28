@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlatformManager : MonoBehaviour
 {
-    public GameObject[] platformPrefabs;
     private Transform playerTransform;
+    public GameObject[] platformPrefabs;
     private float spawnZ = -20.0f;
     private float platformLength = 20.0f;
     private float safeZone = 25.0f;
@@ -15,28 +14,33 @@ public class PlatformManager : MonoBehaviour
 
     private List<GameObject> activePlatforms;
 
-
     void Start()
     {
         activePlatforms = new List<GameObject>();
-        playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
-        
-        for(int i =0; i < amnPlatformOnScreen; i ++)
-        {
-            if (i < 2)
-                SpawnPlatform(0);
-            else 
-                SpawnPlatform();
-        }
+
+            for (int i = 0; i < amnPlatformOnScreen; i++)
+
+            {
+                if (i < 2)
+                    SpawnPlatform(0);
+                else
+                    SpawnPlatform();
+            }
 
     }
 
     private void Update()
     {
-        if(playerTransform.position.z - safeZone > spawnZ - amnPlatformOnScreen * platformLength)
+        if (GameObject.Find("Player(Clone)") != null)
         {
-            SpawnPlatform();
-            DeletePlatform();
+            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
+            if (playerTransform.position.z - safeZone > spawnZ - amnPlatformOnScreen * platformLength)
+            {
+                SpawnPlatform();
+                DeletePlatform();
+            }
+
         }
     }
 
