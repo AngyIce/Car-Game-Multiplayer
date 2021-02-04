@@ -43,7 +43,7 @@ using Mirror;
         [Command]
         void CmdFire()
         {
-            GameObject projectile = Instantiate(projectilePrefab, projectileMount.position, transform.rotation);
+            GameObject projectile = Instantiate(projectilePrefab, projectileMount.position, projectileMount.rotation);
             NetworkServer.Spawn(projectile);
             //RpcOnFire();
         }

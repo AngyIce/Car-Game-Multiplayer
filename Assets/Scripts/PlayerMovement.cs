@@ -74,9 +74,16 @@ public class PlayerMovement : NetworkBehaviour
         moveVectorAxis.y = verticalVelocity;
 
         //Z - Forward & Backward
-        moveVector.z = Input.GetAxisRaw("Vertical");
+        moveVector.z = Input.GetAxisRaw("Vertical") * 2.0f;
 
-        moveVectorAxis.z = Input.GetAxisRaw("Vertical");
+        moveVectorAxis.z = Input.GetAxisRaw("Vertical") * 3.0f;
+
+        if (pinButtonValue == 1)
+
+        //if (Input.GetKeyDown(shootKey))
+        {
+            CmdFire();
+        }
 
     }
 
@@ -85,14 +92,14 @@ public class PlayerMovement : NetworkBehaviour
         if (isDead)
             return;
 
-        if(!isLocalPlayer) return;
+        //if(!isLocalPlayer) return;
 
-        //if (mappedPot < 1.5)
-        //{
-        //controller.MovePosition(controller.position + moveVector * speed * Time.fixedDeltaTime);
-        //}
+        if (mappedPot < 1.5)
+        {
+           controller.MovePosition(controller.position + moveVector * speed * Time.fixedDeltaTime);
+        }
 
-        controller.MovePosition(controller.position + moveVectorAxis * speed * Time.fixedDeltaTime);
+        //controller.MovePosition(controller.position + moveVectorAxis * speed * Time.fixedDeltaTime);
 
     }
 
@@ -125,4 +132,10 @@ public class PlayerMovement : NetworkBehaviour
         SceneManager.LoadScene("CarGame");
     }
 
+    [Command]
+    void CmdFire()
+    {
+        GameObject projectile = Instantiate(projectilePrefab, projectileMount.position, projectileMount.rotation);
+        NetworkServer.Spawn(projectile); 
+    }
 }
