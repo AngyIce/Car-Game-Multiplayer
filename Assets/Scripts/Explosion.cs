@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-
+    public static bool haveCollided;
     public float cubeSize = 0.2f;
-    public int cubesInRow = 5;
+    public int cubesInRow = 20;
 
     float cubesPivotDistance;
     Vector3 cubesPivot;
@@ -31,7 +31,7 @@ public class Explosion : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Projectile"))
-        {
+        { 
             explode();
         }
     }
@@ -68,7 +68,7 @@ public class Explosion : MonoBehaviour
 
     }
 
-    void createPiece(int x, int y, int z)
+    public void createPiece(int x, int y, int z)
     {
         GameObject piece;
         piece = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -82,7 +82,8 @@ public class Explosion : MonoBehaviour
 
         piece.tag = "Blocks";
 
-    }
+        haveCollided = true;
 
+    }
 
 }

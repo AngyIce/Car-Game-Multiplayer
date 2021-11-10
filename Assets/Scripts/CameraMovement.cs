@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
 
-public class CameraMovement : NetworkBehaviour
+
+public class CameraMovement : MonoBehaviour
 {
     private float zFocus;
     public float xCameraAdjust;
@@ -13,7 +13,7 @@ public class CameraMovement : NetworkBehaviour
     void Update()
     {
 
-        if (GameObject.Find("Player(Clone)") != null)
+        if (GameObject.Find("Player") != null)
         {
             zFocus = GameObject.FindGameObjectWithTag("Player").transform.position.z;
             this.transform.position = new Vector3(xCameraAdjust, yCameraAdjust, zFocus + zCameraAdjust);

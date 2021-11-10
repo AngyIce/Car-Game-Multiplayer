@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-using Mirror;
 
-public class PlayerMovement : NetworkBehaviour
+
+public class PlayerMovement : MonoBehaviour
 {
     [Header("Rigidbody Values")]
 
@@ -24,8 +24,9 @@ public class PlayerMovement : NetworkBehaviour
 
     [Header("Firing")]
     public KeyCode shootKey = KeyCode.Space;
-    public GameObject projectilePrefab;
+    public Rigidbody projectilePrefab;
     public Transform projectileMount;
+    public float fireForce;
 
     [Header("Arduino Variables")]
 
@@ -74,17 +75,16 @@ public class PlayerMovement : NetworkBehaviour
         moveVectorAxis.y = verticalVelocity;
 
         //Z - Forward & Backward
-        moveVector.z = Input.GetAxisRaw("Vertical") * 2.0f;
+        moveVector.z = speed;
 
-        moveVectorAxis.z = Input.GetAxisRaw("Vertical") * 3.0f;
+        moveVectorAxis.z = speed;
 
-        if (pinButtonValue == 1)
 
-        //if (Input.GetKeyDown(shootKey))
-        {
-            CmdFire();
-        }
+        //if (pinButtonValue == 1)
 
+        if (Input.GetKeyDown(shootKey))
+
+            CmdFire();  
     }
 
     private void FixedUpdate()
@@ -132,10 +132,9 @@ public class PlayerMovement : NetworkBehaviour
         SceneManager.LoadScene("CarGame");
     }
 
-    [Command]
     void CmdFire()
     {
-        GameObject projectile = Instantiate(projectilePrefab, projectileMount.position, projectileMount.rotation);
-        NetworkServer.Spawn(projectile); 
+        var projectile = Instantiate(projectilePrefab, projectileMount.position, projectileMount.rotation);
+        projectile.AddForce(projectileMount.forward * fireForce);
     }
 }

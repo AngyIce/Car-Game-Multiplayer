@@ -31,7 +31,7 @@ public class PlatformManager : MonoBehaviour
 
     private void Update()
     {
-        if (GameObject.Find("Player(Clone)") != null)
+        if (GameObject.Find("Player") != null)
         {
             playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
